@@ -3,6 +3,8 @@ package com.example.smartmeter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -23,16 +25,19 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
     private String TAG = "mutall";
     private JSONArray jsonArray;
-    private List<Reading> readings;
+    private List<Reading> readingsList;
+
+    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        readings = new ArrayList<>();
+        listView = findViewById(R.id.list);
+        readingsList = new ArrayList<>();
         getMeterReadings();
-    }
 
+    }
     public void getMeterReadings(){
         //creating a request queue
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -55,13 +60,15 @@ public class MainActivity extends AppCompatActivity {
                         String usage = individual.getString("consumption_estimate");
 
                         Reading reading = new Reading(prev_value, current_value,date, usage);
-                        readings.put(reading);
+                        readingsList.add(reading);
                     }
+
+                    CustomAdapter adapter = new CustomAdapter(MainActivity.this, readingsList);
+                    listView.setAdapter(adapter);
+
                 }catch (JSONException e){
                     Log.e(TAG, e.getMessage());
                 }
-
-
             }
         }, new Response.ErrorListener() {
             @Override
