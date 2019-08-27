@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">SmartMeter</string>
-    <string name="initial">previous reading</string>
+    <string name="previous">previous reading</string>
     <string name="date">date of reading</string>
     <string name="final_reading">final reading</string>
     <string name="consumption">consumption</string>
