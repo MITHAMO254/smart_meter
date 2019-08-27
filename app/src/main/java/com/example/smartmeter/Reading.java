@@ -1,6 +1,8 @@
 package com.example.smartmeter;
 
 
+import android.widget.TextView;
+
 public class Reading {
     String date;
     String previous;
@@ -14,8 +16,4 @@ public class Reading {
         this.consumption = consumption;
     }
 
-    @Override
-    public String toString() {
-        return this.date;
-    }
 }

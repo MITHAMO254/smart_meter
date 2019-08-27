@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
     private String TAG = "mutall";
     private JSONArray jsonArray;
     private List<Reading> readingsList;
-
     ListView listView;
 
     @Override
@@ -37,7 +36,10 @@ public class MainActivity extends AppCompatActivity {
         readingsList = new ArrayList<>();
         getMeterReadings();
 
+
+
     }
+
     public void getMeterReadings(){
         //creating a request queue
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -63,9 +65,8 @@ public class MainActivity extends AppCompatActivity {
                         readingsList.add(reading);
                     }
 
-                    CustomAdapter adapter = new CustomAdapter(MainActivity.this, readingsList);
+                    OurAdapter adapter = new OurAdapter(MainActivity.this, readingsList);
                     listView.setAdapter(adapter);
-
                 }catch (JSONException e){
                     Log.e(TAG, e.getMessage());
                 }
@@ -92,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         queue.add(readings);
 
     }
+
     private void convertStringToJson(String data){
         try {
             jsonArray = new JSONArray(data);
@@ -99,4 +101,5 @@ public class MainActivity extends AppCompatActivity {
             Log.e(TAG, e.getMessage());
         }
     }
+
 }
