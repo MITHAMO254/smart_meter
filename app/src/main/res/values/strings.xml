@@ -4,4 +4,12 @@
     <string name="date">date of reading</string>
     <string name="final_reading">final reading</string>
     <string name="consumption">consumption</string>
+
+    <string-array name="names">
+        <item>Muraya Home</item>
+        <item>John Matasia</item>
+        <item>Munene Corner baridi</item>
+        <item>Githeiga Oloolua</item>
+        <item>Mutall building</item>
+    </string-array>
 </resources>
