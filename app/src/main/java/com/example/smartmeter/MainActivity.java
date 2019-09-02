@@ -1,9 +1,11 @@
 package com.example.smartmeter;
 
+import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -26,11 +28,17 @@ public class MainActivity extends AppCompatActivity {
     private JSONArray jsonArray;
     private List<Reading> readingsList;
     ListView listView;
-
+    private String meter_no, date_from, date_to;
+    private ProgressDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+        meter_no = getIntent().getStringExtra("meter");
+        date_from = getIntent().getStringExtra("date_from");
+        date_to = getIntent().getStringExtra("date_to");
+        dialog = new ProgressDialog(this);
+
         listView = findViewById(R.id.list);
         readingsList = new ArrayList<>();
         getMeterReadings();
@@ -40,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getMeterReadings(){
+        dialog.setMessage("Fetching from Server");
+        dialog.show();
         //creating a request queue
         RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -52,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     JSONObject object = jsonArray.getJSONObject(1);
                     JSONArray readings = object.getJSONArray("modem_usage");
+                    if(readings.length() < 1 ){
+                        Toast.makeText(MainActivity.this, "No READINGS FOR THE SPECIFIED DATES", Toast.LENGTH_LONG).show();
+                    }
 
                     for (int i = 0; i<readings.length(); i++){
                         JSONObject individual = readings.getJSONObject(i);
@@ -69,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 }catch (JSONException e){
                     Log.e(TAG, e.getMessage());
                 }
+                dialog.dismiss();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -82,9 +96,9 @@ public class MainActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("auth_key", "0203ndfwu506bxfuopva5ybdge");
                 params.put("id_request", "13");
-                params.put("modem_hex", "72E1C5");
-                params.put("from_date", "2019-08-06");
-                params.put("to_date", "2019-08-15");
+                params.put("modem_hex", meter_no);
+                params.put("from_date", date_from);
+                params.put("to_date", date_to);
 
                 return params;
             }
