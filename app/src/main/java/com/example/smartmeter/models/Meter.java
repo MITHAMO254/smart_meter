@@ -1,4 +1,4 @@
-package com.example.smartmeter;
+package com.example.smartmeter.models;
 
 import java.util.ArrayList;
 import java.util.HashMap;

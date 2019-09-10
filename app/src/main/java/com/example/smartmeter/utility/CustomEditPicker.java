@@ -1,4 +1,4 @@
-package com.example.smartmeter;
+package com.example.smartmeter.utility;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;

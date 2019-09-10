@@ -4,7 +4,9 @@
     <string name="date">date of reading</string>
     <string name="final_reading">final reading</string>
     <string name="consumption">consumption</string>
-
+    <string name="date_of_reading">Date of Reading</string>
+    <string name="prev_val">Previous Value</string>
+    <string name="curr_val">Current Value</string>
     <string-array name="names">
         <item>Muraya Home</item>
         <item>John Matasia</item>

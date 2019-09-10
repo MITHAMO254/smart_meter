@@ -1,12 +1,12 @@
-package com.example.smartmeter;
+package com.example.smartmeter.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class PostParameters implements Parcelable {
-    private String modem_hex;
-    private String date_from;
-    private String date_to;
+public class PostParameters implements Parcelable{
+    public  String modem_hex;
+    public  String date_from;
+    public  String date_to;
 
     public PostParameters(String modem_hex, String date_from, String date_to){
         this.date_from = date_from;

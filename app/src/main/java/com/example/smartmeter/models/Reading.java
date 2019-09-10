@@ -1,13 +1,13 @@
-package com.example.smartmeter;
+package com.example.smartmeter.models;
 
 
 import android.widget.TextView;
 
 public class Reading {
-    String date;
-    String previous;
-    String current;
-    String consumption;
+   public String date;
+    public String previous;
+    public String current;
+    public String consumption;
 
     public Reading(String previous, String current, String date, String consumption){
         this.date = date;

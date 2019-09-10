@@ -1,22 +1,19 @@
-package com.example.smartmeter;
-import android.annotation.TargetApi;
-import android.app.DatePickerDialog;
+package com.example.smartmeter.Activities;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Calendar;
+import com.example.smartmeter.R;
+import com.example.smartmeter.models.Meter;
+import com.example.smartmeter.utility.CustomEditPicker;
 
 public class SpinnerActivity extends AppCompatActivity {
     private Spinner spinner;
@@ -26,6 +23,7 @@ public class SpinnerActivity extends AppCompatActivity {
     private String meter_hex;
     private Button btn;
     private CustomEditPicker picker1, picker2;
+    String name;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +41,7 @@ public class SpinnerActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-               String name = parent.getItemAtPosition(position).toString();
+               name = parent.getItemAtPosition(position).toString();
                try {
                    int meter_number = meter.getMeter(name);
                    tview.setText("The Selected meter is " + meter_number);
@@ -62,14 +60,35 @@ public class SpinnerActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SpinnerActivity.this, MainActivity.class);
-                intent.putExtra("meter", meter_hex);
-                intent.putExtra("date_from", picker1.getDate());
-                intent.putExtra("date_to", picker2.getDate());
-                startActivity(intent);
+                if(validate()) {
+                    Intent intent = new Intent(SpinnerActivity.this, MainActivity.class);
+                    intent.putExtra("meter", meter_hex);
+                    intent.putExtra("date_from", picker1.getDate());
+                    intent.putExtra("date_to", picker2.getDate());
+                    intent.putExtra("name", name);
+                    startActivity(intent);
+                }else {
+                    Toast.makeText(SpinnerActivity.this, "EDIT TEXT CANNOT BE EMPTY", Toast.LENGTH_LONG).show();
+                }
 
             }
         });
+    }
+
+    public boolean validate(){
+        boolean result = true;
+        EditText date_from = findViewById(R.id.date_from);
+        EditText date_to = findViewById(R.id.date_to);
+
+        if(date_from.getText().toString().isEmpty()){
+            result = false;
+        }
+
+        if(date_to.getText().toString().isEmpty()){
+            result = false;
+        }
+
+        return result;
     }
 }
 

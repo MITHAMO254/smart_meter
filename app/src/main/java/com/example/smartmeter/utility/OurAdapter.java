@@ -1,4 +1,4 @@
-package com.example.smartmeter;
+package com.example.smartmeter.utility;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,6 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.example.smartmeter.R;
+import com.example.smartmeter.models.Reading;
 
 import java.util.ArrayList;
 import java.util.List;
